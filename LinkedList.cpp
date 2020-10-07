@@ -38,24 +38,24 @@ void LinkedList::append(int data){
   return;
 }
 
-//Remove the node at position pos, 1st element = 1 instead of 0
+//Remove the node at position pos
 void LinkedList::remove(int pos){
 	if(size() == 0 or size() < pos){
-		cout<<"position specified is invalid as size= "<< size() << "pos= "<< pos << endl;
+		cout<<"position specified is invalid as size = "<< size() << ", pos= "<< pos << endl;
 		throw pos; // exits the remove()
 	}
-
+  
+  Node* toRemove;
   Node *t = head;
-  //iterate until reaching the node before pos
-  for( int i = 1; i < pos-1; i++) t=t->getNext();
-    Node* toRemove = t->getNext(); //creates another pointer pointing to the node at pos for removal later
-  if( toRemove != 0){
-    t->setNext( toRemove->getNext()); //link t to the link after
-    delete toRemove;
+  for( int i = 1; i < pos-1; i++) t=t->getNext();  //iterate until reaching the node before pos
+  if( pos == 1){
+    toRemove = head;
+    head = toRemove->getNext();
   } else {
-    t->setNext(0); //link t to the link after
+    toRemove = t->getNext();
+    t->setNext(toRemove->getNext());
   }
-  print();
+ delete toRemove;
 }
 
 //Return the size of the list
@@ -69,6 +69,7 @@ int LinkedList::size() const{
 		++i;
 		t=t->getNext();
 	}
+  //cout << "size is " << i << endl;
 	return i;
 }
 
@@ -90,7 +91,7 @@ void LinkedList::print() const {
 //This method is yet to be completed
 void LinkedList::insert(int pos, int val){
   if(size() == 0 or size() < pos){
-		cout<<"position specified is invalid as size= "<< size() << "pos= "<< pos << endl;
+		cout<<"position specified is invalid as size = "<< size() << ", pos= "<< pos << endl;
 		throw pos; // exits the remove()
 	}
 	Node *n = new Node(val);
@@ -110,7 +111,7 @@ void LinkedList::insert(int pos, int val){
 //read and return the contents of node at pos 
 int LinkedList::fetch(int pos){
   if(size() == 0 or size() < pos){
-		cout<<"position specified is invalid as size= "<< size() << "pos= "<< pos << endl;
+		cout<<"position specified is invalid as size = "<< size() << ", pos= "<< pos << endl;
 		throw pos; // exits the remove()
 	}
 

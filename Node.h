@@ -7,8 +7,7 @@ public:
 	//constructor
 	Node(int v);
 	//getters and setters
-	//For functions that are not expected to
-	//alter the instance, we use const:
+	//For functions that are not expected to alter the instance, we use const:
 	void setNext(Node *n);
 	Node* getNext() const;
 	int getValue() const;

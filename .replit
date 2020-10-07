@@ -1,2 +1,2 @@
 language = "bash"
-run = "make all"
+run = "make debug"
