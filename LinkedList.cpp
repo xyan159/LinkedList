@@ -28,7 +28,7 @@ void LinkedList::append(int data){
 		//create a node t that points to the head
 		Node *t = head;
 		//iterate until reaching the end
-		while(t->getNext()!=NULL){
+		while(t->getNext()!=0){
 				t=t->getNext();
 		}
 		//make the new node the end node
@@ -40,8 +40,6 @@ void LinkedList::append(int data){
 
 //Remove the node at position pos, 1st element = 1 instead of 0
 void LinkedList::remove(int pos){
-	//int s = size();
-  cout << "size() is " << size() << " and pos is " << pos << endl;
 	if(size() == 0 or size() < pos){
 		cout<<"position specified is invalid as size= "<< size() << "pos= "<< pos << endl;
 		throw pos; // exits the remove()
@@ -50,17 +48,21 @@ void LinkedList::remove(int pos){
   Node *t = head;
   //iterate until reaching the node before pos
   for( int i = 1; i < pos-1; i++) t=t->getNext();
-  Node* toRemove = t->getNext(); //creates another pointer pointing to the node at pos for removal later
-  t->setNext( t->getNext()); //link t to the link after
-  delete toRemove; //deletes the node removed
+    Node* toRemove = t->getNext(); //creates another pointer pointing to the node at pos for removal later
+  if( toRemove != 0){
+    t->setNext( toRemove->getNext()); //link t to the link after
+    delete toRemove;
+  } else {
+    t->setNext(0); //link t to the link after
+  }
+  print();
 }
 
 //Return the size of the list
 //function doesn't modify the instance and hence const
 int LinkedList::size() const{
 	int i=0;
-	Node *t;
-	t=head;
+	Node *t = head;
 	//Iterate until the end of the list to
 	//determine the size
 	while(t!=0){
@@ -114,7 +116,7 @@ int LinkedList::fetch(int pos){
 
   Node *t = head;
   //iterate until reaching  pos
-  for( int i = 1; i < pos-1; i++) t = t->getNext();
+  for( int i = 1; i < pos; i++) t = t->getNext();
   return t->getValue();
 }
 

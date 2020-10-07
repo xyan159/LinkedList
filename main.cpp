@@ -35,7 +35,8 @@ TestResult testPrepend2() {
 	l->prepend(-2);
 	l->prepend(10);
 	l->prepend(5);
-    ASSERT(l->fetch(1)==5);
+  l->print();
+  ASSERT(l->fetch(1)==5);
 	ASSERT(l->fetch(2)==10);
 	ASSERT(l->fetch(3)==-2);
 	//If TR_FAIL not returned already -- test passes
@@ -145,13 +146,13 @@ TestResult testPrependInsertRemove() {
 
 vector<TestResult (*)()> generateTests() {
     vector<TestResult (*)()> tests;
-    tests.push_back(&testPrepend1);
-    tests.push_back(&testPrepend2);
-    tests.push_back(&testPrependRemove1);
-	tests.push_back(&testPrependRemoveFetch);
-    //tests.push_back(&testPrependInsert);
-    //tests.push_back(&testPrependInsertRemove);
-	//tests.push_back(&testInterleaved1);
+    tests.push_back(&testPrepend1); //0
+    tests.push_back(&testPrepend2);//1
+    tests.push_back(&testPrependRemove1);//2
+	  tests.push_back(&testPrependRemoveFetch);//3
+    tests.push_back(&testPrependInsert);//4
+    tests.push_back(&testPrependInsertRemove);//5
+	  //tests.push_back(&testInterleaved1);//6
     return tests;
 }
 
