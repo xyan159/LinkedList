@@ -22,33 +22,37 @@ void LinkedList::append(int data){
 	if(size()==0){
 		//cout <<"Size is zero"<<"\n";
 		head=n;
-		return;
 	}
 	else{
 		//cout <<"Size is non-zero"<<"\n";
 		//create a node t that points to the head
-		Node *t;
-		t=head;
+		Node *t = head;
 		//iterate until reaching the end
-		while(t->getNext()!=0){
+		while(t->getNext()!=NULL){
 				t=t->getNext();
 		}
 		//make the new node the end node
 		t->setNext(n);
 		//cout <<"The value appended "<<n->getValue()<<"\n";
 	}
+  return;
 }
 
-//Remove the node at position pos
-//Yet to be completed
+//Remove the node at position pos, 1st element = 1 instead of 0
 void LinkedList::remove(int pos){
-	//To be completed
-	int s = size();
-	if(s==0 or s< pos){
-			cout<<"position specified is invalid as size= "<<s<<"pos= "<<pos<<"\n";
-			throw pos;
+	//int s = size();
+  cout << "size() is " << size() << " and pos is " << pos << endl;
+	if(size() == 0 or size() < pos){
+		cout<<"position specified is invalid as size= "<< size() << "pos= "<< pos << endl;
+		throw pos; // exits the remove()
 	}
-	//else throw pos;
+
+  Node *t = head;
+  //iterate until reaching the node before pos
+  for( int i = 1; i < pos-1; i++) t=t->getNext();
+  Node* toRemove = t->getNext(); //creates another pointer pointing to the node at pos for removal later
+  t->setNext( t->getNext()); //link t to the link after
+  delete toRemove; //deletes the node removed
 }
 
 //Return the size of the list
@@ -83,16 +87,34 @@ void LinkedList::print() const {
 //Insert a new node at position pos with value val
 //This method is yet to be completed
 void LinkedList::insert(int pos, int val){
+  if(size() == 0 or size() < pos){
+		cout<<"position specified is invalid as size= "<< size() << "pos= "<< pos << endl;
+		throw pos; // exits the remove()
+	}
 	Node *n = new Node(val);
-	int s = size();
-	throw pos;
-	//To be completed
+  Node *t = head;
+  //iterate until reaching the node before pos
+  for( int i = 1; i < pos-1; i++) t=t->getNext();
+  if( pos > 1){
+    n->setNext(t->getNext()); //let the new node connects to the linked node at pos
+    t->setNext(n); //link t (node before pos) to new node
+  } else if( pos == 1){ //if inserting at the start
+    n->setNext(head);
+    head = n;
+  }
+
 }
 
 //read and return the contents of node at pos 
 int LinkedList::fetch(int pos){
-	//To be comnpleted
-	//throw pos;
-	return -10;
+  if(size() == 0 or size() < pos){
+		cout<<"position specified is invalid as size= "<< size() << "pos= "<< pos << endl;
+		throw pos; // exits the remove()
+	}
+
+  Node *t = head;
+  //iterate until reaching  pos
+  for( int i = 1; i < pos-1; i++) t = t->getNext();
+  return t->getValue();
 }
 
